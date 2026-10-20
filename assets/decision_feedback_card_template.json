@@ -1,0 +1,93 @@
+{
+  "schema": "2.0",
+  "config": { "compact_width": false },
+  "header": {
+    "template": "blue",
+    "title": { "tag": "plain_text", "content": "决策反馈" }
+  },
+  "body": {
+    "elements": [
+      {
+        "tag": "markdown",
+        "content": "**Agent：** {{agent_name}}　**场景：** {{scene}}　**归属层：** {{layer}}",
+        "text_align": "left"
+      },
+      { "tag": "hr" },
+      {
+        "tag": "markdown",
+        "content": "### 采纳\n如采纳上述建议，可填写补充说明（可选），然后点「提交」",
+        "text_align": "left"
+      },
+      {
+        "tag": "form",
+        "name": "adopt_form",
+        "direction": "vertical",
+        "elements": [
+          {
+            "tag": "input",
+            "name": "adopt_feedback",
+            "input_type": "multiline_text",
+            "placeholder": { "tag": "plain_text", "content": "采纳说明（可选），如：按建议执行 / 调整量级后执行" },
+            "max_length": 1000
+          },
+          {
+            "tag": "button",
+            "type": "primary",
+            "text": { "tag": "plain_text", "content": "提交" },
+            "form_action_type": "submit",
+            "form_name": "adopt_form",
+            "behaviors": [
+              {
+                "type": "callback",
+                "value": {
+                  "action": "adopt_submit",
+                  "agent_name": "{{agent_name}}",
+                  "scene": "{{scene}}",
+                  "layer": "{{layer}}"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      { "tag": "hr" },
+      {
+        "tag": "markdown",
+        "content": "### 不采纳\n请写明：**① 结论**（部分采纳 / 完全不采纳）　**② 具体原因**",
+        "text_align": "left"
+      },
+      {
+        "tag": "form",
+        "name": "veto_form",
+        "direction": "vertical",
+        "elements": [
+          {
+            "tag": "input",
+            "name": "user_feedback",
+            "input_type": "multiline_text",
+            "placeholder": { "tag": "plain_text", "content": "例：部分采纳，量从 2000 双减到 1000 双，9 月再评估 / 完全不采纳，热度数据未核实，需补充佐证" },
+            "max_length": 1000
+          },
+          {
+            "tag": "button",
+            "type": "danger",
+            "text": { "tag": "plain_text", "content": "提交" },
+            "form_action_type": "submit",
+            "form_name": "veto_form",
+            "behaviors": [
+              {
+                "type": "callback",
+                "value": {
+                  "action": "veto_submit",
+                  "agent_name": "{{agent_name}}",
+                  "scene": "{{scene}}",
+                  "layer": "{{layer}}"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
